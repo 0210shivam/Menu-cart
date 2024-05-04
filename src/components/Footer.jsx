@@ -12,7 +12,7 @@ const Footer = () => {
                 <section className="">
                     <div className="container text-center text-md-start mt-5">
                         <div className="row mt-3">
-                            <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                            <div className="col-md-5 col-lg-5 col-xl-3 mr-auto mb-4">
                                 <h6 className="text-uppercase fw-bold mb-4">
                                     {company_name}
                                 </h6>
@@ -69,7 +69,7 @@ const Footer = () => {
                                     </a>
                                 </p>
                             </div> */}
-                            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <div className="col-md-4 col-lg-5 col-xl-3 mx-auto mb-md-0 mb-4">
                                 <h6 className="text-uppercase fw-bold mb-4">Contact</h6>
                                 {/* <p>
                                     <i className="fas fa-home me-3" /> New York, NY 10012, US
