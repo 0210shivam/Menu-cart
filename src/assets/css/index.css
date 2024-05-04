@@ -17,8 +17,8 @@
 }
 
 .updated-banner {
+    height: 530px;
     width: 100%;
-    aspect-ratio: 16/6;
 }
 
 .updated-product-card {

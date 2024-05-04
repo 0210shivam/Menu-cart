@@ -14,6 +14,7 @@ const Banner = () => {
                             className="carousel slide"
                             data-bs-ride="carousel"
                             data-bs-interval="2000"
+                            data-bs-touch="false"
                         >
                             <div className="carousel-inner">
                                 {banners.map((banner, index) => (
