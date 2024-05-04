@@ -25,7 +25,7 @@ const Banner = () => {
                                         <img
                                             src={banner.image}
                                             className="d-block w-100 updated-banner"
-                                            alt={`Banner ${index + 1}`}
+                                            alt="..."
                                         />
                                     </div>
                                 ))}
