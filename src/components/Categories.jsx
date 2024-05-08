@@ -21,24 +21,18 @@ const Categories = ({ category, selectedCategory, handleCategorySelect, products
                                         </div>
                                     </div>
                                     <div className="col-md-2">
-                                        {/* <img
-                                                        // src={cat}
-                                                        className="img-fluid updated-product-img "
-                                                        alt="..."
-                                                    /> */}
+
                                     </div>
                                 </div>
                             </div>
                         </button>
                     </h2>
                     <div
-
                         id={`collapse${category.id}`}
                         className={`accordion-collapse collapse ${selectedCategory === category.id ? 'show' : ''}`}
                         aria-labelledby={`heading${category.id}`}
                     >
                         <div className="accordion-body">
-
                             {selectedCategory === category.id && (
                                 products.map(product => (
                                     <div key={product.id}>

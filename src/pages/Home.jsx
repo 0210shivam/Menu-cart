@@ -1,6 +1,7 @@
+import '../App.css';
 import React, { useEffect, useState } from 'react';
 import GetPublicCategories from '../api/GetPublicCategories';
-import '../assets/css/index.css';
+// import '../assets/css/index.css';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
@@ -18,6 +19,17 @@ const Home = () => {
 		};
 		getCategories();
 	}, []);
+
+	// Function to check if the description contains a <p> tag
+	const hasPTag = (description) => {
+		return /<p[^>]*>/.test(description);
+	};
+
+	// Function to extract text from HTML string
+	const extractText = (htmlString) => {
+		const doc = new DOMParser().parseFromString(htmlString, 'text/html');
+		return doc.body.textContent || "";
+	};
 
 	const handleCategorySelect = (categoryId) => {
 		if (selectedCategory === categoryId) {
@@ -112,32 +124,70 @@ const Home = () => {
 				))
 			} */}
 
-			<div>
+			{/* <div>
 				{categories.map(category => (
 					<div style={{ marginTop: '15px' }} className='container' key={category.id}>
 						<div style={{ textAlign: 'center' }}>
 							<h2>{category.name}</h2>
 						</div>
 						{category.product_details.map(product => (
-							<div key={product.id} style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-								<div style={{ aspectRatio: '1/1' }}>
-									<img style={{ width: '100px' }} src={product.product_images[0].image} alt="..." />
+							<div key={product.id} style={{ display: 'flex', gap: '15px', alignItems: 'center', justifyContent: 'space-between' }}>
+								<div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+									<div style={{ aspectRatio: '1/1' }}>
+										<img style={{ width: '100px' }} src={product.product_images[0].image} alt="..." />
+									</div>
+									<div>
+										<h6 key={product.id}>{product.name}</h6>
+										{hasPTag(product.description) ? (
+											<div dangerouslySetInnerHTML={{ __html: product.description }} />
+										) : (
+											<p>{extractText(product.description)}</p>
+										)}
+									</div>
 								</div>
 								<div>
-									<h6 key={product.id}>{product.name}</h6>
-									<p>{product.description}</p>
+									RS. {product.mrp}
 								</div>
-								{/* <div>
-									{product.product_images[0].map(image => (
-										<img key={image.id} src={image.url} alt={product.name} />
-									))}
-								</div> */}
+								
 							</div>
 						))}
 					</div>
 				))}
-			</div>
+			</div> */}
 
+			<div className="container">
+				{categories.map(category => (
+					<>
+						<div className='mt-3' key={category.id}>
+							<div className="text-center">
+								<h2 className=''>{category.name}</h2>
+							</div>
+							{category.product_details.map(product => (
+								<div key={product.id} className="row mt-3">
+									<div className="col-md-3 col-3" >
+										<img className="img-thumbnail rounded-circle"
+											src={`${product.product_images[0].image}?tr=w-140,h-140`}
+											alt="..." />
+									</div>
+									<div className="col-md-6 col-6 align-content-center">
+										<h5 className='mb-3'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
+										{hasPTag(product.description) ? (
+											// <span dangerouslySetInnerHTML={{ __html: product.description }} />
+											<i>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam provident quo optio quibusdam  </i>
+										) : (
+											<p>extractText(product.description)</p>
+										)}
+									</div>
+									<div className="col-md-3 col-3 align-content-center">
+										<h3 className='mrp'> &#8377; {product.mrp}</h3>
+									</div>
+								</div>
+							))}
+						</div>
+						<hr />
+					</>
+				))}
+			</div>
 			<Footer />
 		</>
 	);

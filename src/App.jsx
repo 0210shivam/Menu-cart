@@ -1,3 +1,4 @@
+import './App.css';
 import Home from './pages/Home';
 import { BusinessContextProvider } from './contexts/BusinessDetails';
 import { useEffect, useState } from 'react';
