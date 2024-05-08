@@ -35,3 +35,18 @@ body {
     margin-bottom: .5rem;
     color: #FEA116
 }
+
+@media screen and (max-width: 768px) {
+    .mrp {
+        font-size: 20px;
+        /* Adjust the font size for mobile devices */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .desc {
+        font-size: 0.75rem;
+        line-height: 1;
+        /* Adjust the font size for mobile devices */
+    }
+}
