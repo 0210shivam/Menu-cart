@@ -170,12 +170,12 @@ const Home = () => {
 											alt="..." />
 									</div>
 									<div className="col-md-6 col-6 align-content-center">
-										{window.innerWidth <= 768 ? (
-											<h6 className='md-mb-3'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h6>
+										<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
+										{/* {window.innerWidth <= 768 ? (
+											<h6 className='mb-3'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h6>
 										) : (
-											<h5 className='mb-3'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
-										)}
-
+											
+										)} */}
 										{hasPTag(product.description) ? (
 											// <span dangerouslySetInnerHTML={{ __html: product.description }} />
 											<i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam provident quo optio quibusdam  </i>
@@ -183,7 +183,7 @@ const Home = () => {
 											<p>extractText(product.description)</p>
 										)}
 									</div>
-									<div className="col-md-3 col-3 md-align-content-center">
+									<div className="col-md-3 col-3 align-content-md-center">
 										<h3 className='mrp'> &#8377; {product.mrp}</h3>
 									</div>
 								</div>
