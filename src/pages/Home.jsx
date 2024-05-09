@@ -22,14 +22,17 @@ const Home = () => {
 
 	// Function to check if the description contains a <p> tag
 	const hasPTag = (description) => {
-		return /<p[^>]*>/.test(description);
+		const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
+		return /<[a-zA-Z][^>]*>/.test(capitalizedDescription);
 	};
 
 	// Function to extract text from HTML string
 	const extractText = (htmlString) => {
 		const doc = new DOMParser().parseFromString(htmlString, 'text/html');
-		return doc.body.textContent || "";
+		const textContent = doc.body.textContent || "";
+		return textContent.charAt(0).toUpperCase() + textContent.slice(1);
 	};
+
 
 	const handleCategorySelect = (categoryId) => {
 		if (selectedCategory === categoryId) {
@@ -157,40 +160,36 @@ const Home = () => {
 
 			<div className="container">
 				{categories.map(category => (
-					<>
-						<div className='mt-3' key={category.id}>
+					<div key={category.id}>
+						<div className='mt-3'>
 							<div className="text-center">
-								<h2 className=''>{category.name}</h2>
+								<h2 className=''>{category?.name}</h2>
 							</div>
-							{category.product_details.map(product => (
+							{category?.product_details.map(product => (
 								<div key={product.id} className="row mt-3">
 									<div className="col-md-3 col-3" >
 										<img className="img-thumbnail rounded-circle"
-											src={`${product.product_images[0].image}?tr=w-140,h-140`}
+											src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
 											alt="..." />
 									</div>
 									<div className="col-md-6 col-6 align-content-center">
 										<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
-										{/* {window.innerWidth <= 768 ? (
-											<h6 className='mb-3'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h6>
+
+										{hasPTag(product?.description) ? (
+											<i dangerouslySetInnerHTML={{ __html: product?.description }} />
+											// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit.Atque, nulla beatae.Nostrum ea ut quaerat incidunt accusantium?Dolore consectetur quasi eligendi perferendis.Omnisquibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit.Atque, nulla beatae.Nostrum ea ut quaerat incidunt accusantium?Dolore consectetur quasi eligendi perferendis.Omnis. </i>
 										) : (
-											
-										)} */}
-										{hasPTag(product.description) ? (
-											// <span dangerouslySetInnerHTML={{ __html: product.description }} />
-											<i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam provident quo optio quibusdam  </i>
-										) : (
-											<p>extractText(product.description)</p>
+											<p>{extractText(product?.description)}</p>
 										)}
 									</div>
 									<div className="col-md-3 col-3 align-content-md-center">
-										<h3 className='mrp'> &#8377; {product.mrp}</h3>
+										<h3 className='mrp'> &#8377; {product?.mrp}</h3>
 									</div>
 								</div>
 							))}
 						</div>
 						<hr />
-					</>
+					</div>
 				))}
 			</div>
 			<Footer />

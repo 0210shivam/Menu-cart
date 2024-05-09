@@ -38,6 +38,7 @@ body {
 
 
 @media screen and (max-width: 768px) {
+
     .desc {
         font-size: 0.75rem;
         line-height: 1;
@@ -51,5 +52,26 @@ body {
     .mrp {
         font-size: 20px;
         /* Adjust the font size for mobile devices */
+    }
+}
+
+/* Adjust the position of the scroll-to-top button for mobile */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #6f00ff;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 9999;
+        /* Your additional mobile-specific styles */
     }
 }
