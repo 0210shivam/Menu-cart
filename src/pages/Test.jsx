@@ -184,7 +184,7 @@ const Test = () => {
 											)}
 										</div>
 										<div className="col-md-3 col-3 align-content-md-center">
-											<h3 className='mrp'> &#8377; {product?.mrp}</h3>
+											<h3 className='mrp'> &#8377; {product?.selling_price}</h3>
 										</div>
 									</div>
 									<div className="row d-md-none">
