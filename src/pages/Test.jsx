@@ -168,7 +168,7 @@ const Test = () => {
 							{category?.product_details.map(product => (
 								<div key={product.id}>
 									<div className="row mt-3">
-										<div className="col-md-3 col-3" >
+										<div className="col-md-3 col-3 text-center" >
 											<img className="img-thumbnail rounded-circle"
 												src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
 												alt="..." />
@@ -177,7 +177,7 @@ const Test = () => {
 											<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
 											{/* Description */}
 											{hasPTag(product?.description) ? (
-												<i className='desc d-none d-md-block' dangerouslySetInnerHTML={{ __html: product?.description }} />
+												<i className='desc d-md-block' dangerouslySetInnerHTML={{ __html: product?.description }} />
 												// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
 											) : (
 												<p>{extractText(product?.description)}</p>
@@ -187,7 +187,7 @@ const Test = () => {
 											<h3 className='mrp'> &#8377; {product?.selling_price}</h3>
 										</div>
 									</div>
-									<div className="row d-md-none">
+									<div className="row d-none">
 										<div className="col offset-3">
 											{hasPTag(product?.description) ? (
 												<i className='desc' dangerouslySetInnerHTML={{ __html: product?.description }} />
