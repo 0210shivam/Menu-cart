@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 
-const Home = () => {
+const Test = () => {
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [products, setProducts] = useState([]);
@@ -166,24 +166,36 @@ const Home = () => {
 								<h2 className=''>{category?.name}</h2>
 							</div>
 							{category?.product_details.map(product => (
-								<div key={product.id} className="row mt-3">
-									<div className="col-md-3 col-3" >
-										<img className="img-thumbnail rounded-circle"
-											src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
-											alt="..." />
+								<div key={product.id}>
+									<div className="row mt-3">
+										<div className="col-md-3 col-3" >
+											<img className="img-thumbnail rounded-circle"
+												src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
+												alt="..." />
+										</div>
+										<div className="col-md-6 col-6 align-content-center">
+											<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
+											{/* Description */}
+											{hasPTag(product?.description) ? (
+												<i className='desc d-none d-md-block' dangerouslySetInnerHTML={{ __html: product?.description }} />
+												// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
+											) : (
+												<p>{extractText(product?.description)}</p>
+											)}
+										</div>
+										<div className="col-md-3 col-3 align-content-md-center">
+											<h3 className='mrp'> &#8377; {product?.mrp}</h3>
+										</div>
 									</div>
-									<div className="col-md-6 col-6 align-content-center">
-										<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
-
-										{hasPTag(product?.description) ? (
-											<i dangerouslySetInnerHTML={{ __html: product?.description }} />
-											// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
-										) : (
-											<p>{extractText(product?.description)}</p>
-										)}
-									</div>
-									<div className="col-md-3 col-3 align-content-md-center">
-										<h3 className='mrp'> &#8377; {product?.mrp}</h3>
+									<div className="row d-md-none">
+										<div className="col offset-3">
+											{hasPTag(product?.description) ? (
+												<i className='desc' dangerouslySetInnerHTML={{ __html: product?.description }} />
+												// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
+											) : (
+												<p>{extractText(product?.description)}</p>
+											)}
+										</div>
 									</div>
 								</div>
 							))}
@@ -197,4 +209,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Test;
