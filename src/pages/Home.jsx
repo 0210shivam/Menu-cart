@@ -5,6 +5,7 @@ import GetPublicCategories from '../api/GetPublicCategories';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
+import menuView from '../assets/img/menu-view.png';
 
 const Home = () => {
 	const [categories, setCategories] = useState([]);
@@ -22,7 +23,7 @@ const Home = () => {
 
 	// Function to check if the description contains a <p> tag
 	const hasPTag = (description) => {
-		const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
+		const capitalizedDescription = description?.charAt(0)?.toUpperCase() + description?.slice(1);
 		return /<[a-zA-Z][^>]*>/.test(capitalizedDescription);
 	};
 
@@ -46,86 +47,34 @@ const Home = () => {
 		}
 	};
 
+	const scrollToCategory = (categoryId) => {
+		const categoryTitle = document.getElementById(`category-${categoryId}`);
+		if (categoryTitle) {
+			categoryTitle.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
+
+	// Function to close the offcanvas modal
+	const closeOffcanvasModal = () => {
+		const offcanvasElement = document.getElementById('offcanvasBottom');
+		const offcanvasModal = bootstrap.Offcanvas.getInstance(offcanvasElement);
+		if (offcanvasModal) {
+			offcanvasModal.hide();
+		}
+	};
+
+	const scrollToCategoryModal = (categoryId) => {
+		const categoryTitle = document.getElementById(`category-${categoryId}`);
+		if (categoryTitle) {
+			categoryTitle.scrollIntoView({ behavior: 'smooth' });
+			closeOffcanvasModal();
+		}
+	};
+
 	return (
 		<>
 			<Header />
 			<Banner />
-			{/* {
-				categories?.map((category) => (
-					<div className='container' key={category.id}>
-						<div className="accordion" >
-							<div className="accordion-item">
-								<h2 className="accordion-header" id={`heading${category.id}`}>
-									<button
-										className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"
-										onClick={() => handleCategorySelect(category.id)}
-									>
-										<div className="card updated-product-card">
-											<div className="row g-0">
-												<div className="col-md-10">
-													<div className="card-body">
-														<h5 className="card-title updated-card-title">{category.name}</h5>
-													</div>
-												</div>
-												<div className="col-md-2">
-													
-												</div>
-											</div>
-										</div>
-									</button>
-								</h2>
-								<div
-
-									id={`collapse${category.id}`}
-									className={`accordion-collapse collapse ${selectedCategory === category.id ? 'show' : ''}`}
-									aria-labelledby={`heading${category.id}`}
-								>
-									<div className="accordion-body">
-
-										{selectedCategory === category.id && (
-											products.map(product => (
-												<div key={product.id}>
-													<div className="card updated-sub-product-card">
-														<div className="row g-0">
-															<div className="col-md-1">
-																<img
-																	style={{ objectFit: "contain" }}
-																	src={product.product_images[0].image}
-																	className="img-fluid updated-sub-product-img"
-																	alt="..."
-																/>
-															</div>
-															<div className="col-md-9">
-																<div className="card-body">
-																	<h5 className="card-title updated-product-heading py-0">
-																		{product.name}
-																	</h5>
-																	<p className="card-text updated-product-sub-title mt-0">
-																		Our classic pizza sauce topped with onions,capsicum and
-																		tomatoes made with a blend of cheese
-																	</p>
-																</div>
-															</div>
-															<div className="col-md-2">
-																<div className="quantity-selector">
-																	<h5 style={{ color: "#FF4D2A" }} className="card-title updated-product-heading">
-																		RS. {product.mrp}
-																	</h5>
-																</div>
-															</div>
-														</div>
-													</div>
-													<hr />
-												</div>
-											))
-										)}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				))
-			} */}
 
 			{/* <div>
 				{categories.map(category => (
@@ -151,39 +100,72 @@ const Home = () => {
 								<div>
 									RS. {product.mrp}
 								</div>
-								
+
 							</div>
 						))}
 					</div>
 				))}
 			</div> */}
 
-			<div className="container">
-				{categories.map(category => (
+			<div className="container mt-4">
+				<div id="carouselExampleDark" className="carousel carousel-dark slide d-none d-md-block" data-bs-ride="carousel" >
+					<div className="carousel-inner" style={{ display: 'flex', gap: '15px', padding: '5px', justifyContent: 'center' }}>
+						{
+							categories?.map((category) => (
+								<div onClick={() => scrollToCategory(category.id)} style={{ cursor: 'pointer' }} key={category?.id} >
+									<img className="img-thumbnail rounded-circle"
+										style={{ width: '80px' }}
+										src={`${category?.image}?tr=w-20,h-20`}
+										alt="..." />
+									<p className='text-center mt-3'>
+										{category?.name}
+									</p>
+								</div>
+							))
+						}
+					</div>
+				</div>
+				{categories?.map(category => (
 					<div key={category.id}>
 						<div className='mt-3'>
 							<div className="text-center">
-								<h2 className=''>{category?.name}</h2>
+								<h2 id={`category-${category.id}`} >{category?.name}</h2>
 							</div>
-							{category?.product_details.map(product => (
-								<div key={product.id} className="row mt-3">
-									<div className="col-md-3 col-3" >
-										<img className="img-thumbnail rounded-circle"
-											src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
-											alt="..." />
+							{category?.product_details?.map(product => (
+								<div key={product.id}>
+									<div className="row mt-3">
+										<div className="col-md-3 col-3 text-center" >
+											{
+												product?.product_images?.length > 0 ?
+													<img className="img-thumbnail rounded"
+														src={`${product?.product_images[0].image}?tr=w-140,h-140`}
+														alt="..." />
+													: <p>No</p>
+											}
+										</div>
+										<div className="col-md-6 col-6 align-content-center">
+											<h5 className='mb-3 product-title'>{product?.name?.charAt(0).toUpperCase() + product?.name?.slice(1)}</h5>
+											{/* Description */}
+											{hasPTag(product?.description) ? (
+												<i className='desc d-md-block' dangerouslySetInnerHTML={{ __html: product?.description }} />
+												// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
+											) : (
+												<p>{extractText(product?.description)}</p>
+											)}
+										</div>
+										<div className="col-md-3 col-3 align-content-md-center">
+											<h3 className='mrp'> &#8377; {product?.selling_price}</h3>
+										</div>
 									</div>
-									<div className="col-md-6 col-6 align-content-center">
-										<h5 className='mb-3 product-title'>{product.name.charAt(0).toUpperCase() + product.name.slice(1)}</h5>
-
-										{hasPTag(product?.description) ? (
-											<i dangerouslySetInnerHTML={{ __html: product?.description }} />
-											// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
-										) : (
-											<p>{extractText(product?.description)}</p>
-										)}
-									</div>
-									<div className="col-md-3 col-3 align-content-md-center">
-										<h3 className='mrp'> &#8377; {product?.mrp}</h3>
+									<div className="row d-none">
+										<div className="col offset-3">
+											{hasPTag(product?.description) ? (
+												<i className='desc' dangerouslySetInnerHTML={{ __html: product?.description }} />
+												// <i className='desc'>Lorem ipsum dolor sit amet consectetur adipisicing elit.Ullam provident quo optio quibusdam Lorem, ipsum dolor.Lorem ipsum dolor sit amet consectetur adipisicing elit. </i>
+											) : (
+												<p>{extractText(product?.description)}</p>
+											)}
+										</div>
 									</div>
 								</div>
 							))}
@@ -191,6 +173,37 @@ const Home = () => {
 						<hr />
 					</div>
 				))}
+				{/* Menu image --  */}
+				<div className='d-md-none' style={{ position: 'fixed', bottom: '5%', right: '35px', transform: 'translateY(-50%)', zIndex: '10', cursor: 'pointer' }}>
+					<img
+						data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+						style={{
+							width: '50px',
+							height: '50px',
+							borderRadius: '10px',
+							boxShadow: 'rgba(0, 0, 0, 0.3) 0px 5px 10px 0px, rgba(93, 141, 213, 0.2) 0px 2px 1px 0px',
+							transition: 'transform 0.25s ease-in-out 0s'
+						}}
+						src={menuView} alt="Menu"
+					/>
+				</div>
+				<div className="offcanvas offcanvas-bottom rounded-top h-75" tabIndex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasBottomLabel">Select Category</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div className="offcanvas-body small">
+						{
+							categories.map((category) => (
+								<div onClick={() => scrollToCategoryModal(category.id)} style={{ cursor: 'pointer' }} key={category.id} >
+									<h6 className='mt-4'>
+										{category?.name}
+									</h6>
+								</div>
+							))
+						}
+					</div>
+				</div>
 			</div>
 			<Footer />
 		</>

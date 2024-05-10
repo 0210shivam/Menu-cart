@@ -1,7 +1,7 @@
 const GetPublicBusinessDetails = async () => {
     try {
         const host = "https://testapi.arbsindia.com";
-        const business_id = 267;
+        const business_id = localStorage.getItem("business_id");
 
         const response = await fetch(`${host}/public/api/get-public-business-details-list`, {
             method: 'POST',
