@@ -15,8 +15,8 @@ const Home = () => {
 	useEffect(() => {
 		const getCategories = async () => {
 			const response = await GetPublicCategories();
-			console.log("Category", response.data);
-			setCategories(response.data.category);
+			console.log("Category", response?.data);
+			setCategories(response?.data?.category);
 		};
 		getCategories();
 	}, []);
@@ -41,7 +41,7 @@ const Home = () => {
 			setSelectedCategory(null); // Close if already open
 		} else {
 			setSelectedCategory(categoryId);
-			const categoryProducts = categories.find(category => category.id === categoryId).product_details;
+			const categoryProducts = categories?.find(category => category?.id === categoryId)?.product_details;
 			console.log("Products", categoryProducts);
 			setProducts(categoryProducts);
 		}
@@ -50,7 +50,7 @@ const Home = () => {
 	const scrollToCategory = (categoryId) => {
 		const categoryTitle = document.getElementById(`category-${categoryId}`);
 		if (categoryTitle) {
-			categoryTitle.scrollIntoView({ behavior: 'smooth' });
+			categoryTitle?.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
 
@@ -112,7 +112,7 @@ const Home = () => {
 					<div className="carousel-inner" style={{ display: 'flex', gap: '15px', padding: '5px', justifyContent: 'center' }}>
 						{
 							categories?.map((category) => (
-								<div onClick={() => scrollToCategory(category.id)} style={{ cursor: 'pointer' }} key={category?.id} >
+								<div onClick={() => scrollToCategory(category?.id)} style={{ cursor: 'pointer' }} key={category?.id} >
 									<img className="img-thumbnail rounded-circle"
 										style={{ width: '80px' }}
 										src={`${category?.image}?tr=w-20,h-20`}
@@ -125,26 +125,26 @@ const Home = () => {
 						}
 					</div>
 				</div>
-				{categories?.map(category => (
-					<div key={category.id}>
+				{categories?.length > 0 && categories?.map(category => (
+					<div key={category?.id}>
 						<div className='mt-3'>
 							<div className="text-center">
-								<h2 id={`category-${category.id}`} >{category?.name}</h2>
+								<h2 id={`category-${category?.id}`} >{category?.name}</h2>
 							</div>
-							{category?.product_details?.map(product => (
-								<div key={product.id}>
+							{category?.product_details?.length > 0 && category?.product_details?.map(product => (
+								<div key={product?.id}>
 									<div className="row mt-3">
 										<div className="col-md-3 col-3 text-center" >
 											{
 												product?.product_images?.length > 0 ?
 													<img className="img-thumbnail rounded"
-														src={`${product?.product_images[0].image}?tr=w-140,h-140`}
+														src={`${product?.product_images[0]?.image}?tr=w-140,h-140`}
 														alt="..." />
 													: <p>No</p>
 											}
 										</div>
 										<div className="col-md-6 col-6 align-content-center">
-											<h5 className='mb-3 product-title'>{product?.name?.charAt(0).toUpperCase() + product?.name?.slice(1)}</h5>
+											<h5 className='mb-3 product-title'>{product?.name?.charAt(0)?.toUpperCase() + product?.name?.slice(1)}</h5>
 											{/* Description */}
 											{hasPTag(product?.description) ? (
 												<i className='desc d-md-block' dangerouslySetInnerHTML={{ __html: product?.description }} />
@@ -194,8 +194,8 @@ const Home = () => {
 					</div>
 					<div className="offcanvas-body small">
 						{
-							categories.map((category) => (
-								<div onClick={() => scrollToCategoryModal(category.id)} style={{ cursor: 'pointer' }} key={category.id} >
+							categories?.map((category) => (
+								<div onClick={() => scrollToCategoryModal(category?.id)} style={{ cursor: 'pointer' }} key={category?.id} >
 									<h6 className='mt-4'>
 										{category?.name}
 									</h6>

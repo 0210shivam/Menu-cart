@@ -17,7 +17,7 @@ const Banner = () => {
                             data-bs-touch="false"
                         >
                             <div className="carousel-inner">
-                                {banners.map((banner, index) => (
+                                {banners?.map((banner, index) => (
                                     <div
                                         key={index}
                                         className={`carousel-item ${index === 0 ? 'active' : ''}`}

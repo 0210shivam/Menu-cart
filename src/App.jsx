@@ -24,7 +24,7 @@ function App() {
 			const domain = window.location.hostname;
 			const res = await GetDomain(domain);
 			localStorage.setItem("business_id", res?.data.business_id);
-			console.log("Actual Domain", res.data.business_id);
+			console.log("Actual Domain", res?.data?.business_id);
 		};
 
 		domainName();
@@ -33,14 +33,14 @@ function App() {
 	useEffect(() => {
 		const getBusiness = async () => {
 			const response = await GetPublicBusinessDetails();
-			setBanners(response.data.banners);
-			setBusinessLogo(response.data.business[0].image);
-			setAddress(response.data.business[0].address);
-			setCity(response.data.business[0].city);
-			setEmail(response.data.business[0].email);
-			setPhone(response.data.business[0].phone);
-			setLink_name(response.data.seo[0].link_name);
-			setCompany_name(response.data.seo[0].meta_title);
+			setBanners(response.data?.banners);
+			setBusinessLogo(response.data?.business[0]?.image);
+			setAddress(response.data?.business[0]?.address);
+			setCity(response.data?.business[0]?.city);
+			setEmail(response.data?.business[0]?.email);
+			setPhone(response.data?.business[0]?.phone);
+			setLink_name(response.data?.seo[0]?.link_name);
+			setCompany_name(response.data?.seo[0]?.meta_title);
 			console.log("Business Data", response.data);
 		};
 		getBusiness();
