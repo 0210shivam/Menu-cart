@@ -145,7 +145,8 @@ const Home = () => {
 											</div>
 											{/* TODO: Check the mrp and selling prc */}
 											<div className="col-md-3 col-3 align-content-md-center">
-												<h3 className='mrp'> &#8377; {product?.selling_price}</h3>
+												<h3 className='selling-price'> &#8377; {product?.selling_price}</h3>
+												<span className='mrp'> &#8377; {product?.mrp} </span>
 											</div>
 										</div>
 									</div>
