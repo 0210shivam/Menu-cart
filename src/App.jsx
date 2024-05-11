@@ -50,8 +50,25 @@ function App() {
 				setEmail(response.data?.business[0]?.email);
 				setPhone(response.data?.business[0]?.phone);
 				setLink_name(response.data?.seo[0]?.link_name);
-				setCompany_name(response.data?.seo[0]?.meta_title);
+				setCompany_name(response.data?.business[0]?.name);
 				console.log("Business Data", response.data);
+
+				// *Handling SEO 
+				if (response.data.seo) {
+					document.title = response.data.seo[0]?.meta_title || "Menu Card";
+
+					const description = response.data.seo[0]?.meta_description || "Default description";
+					const descriptionMetaTag = document.querySelector('meta[name="description"]');
+					if (descriptionMetaTag) {
+						descriptionMetaTag.setAttribute('content', description);
+					} else {
+						const newDescriptionMetaTag = document.createElement('meta');
+						newDescriptionMetaTag.setAttribute('name', 'description');
+						newDescriptionMetaTag.setAttribute('content', description);
+						document.head.appendChild(newDescriptionMetaTag);
+					}
+				}
+
 			} catch (error) {
 				return console.log(error);
 			}
@@ -72,7 +89,10 @@ function App() {
 						{/* <Sample /> */}
 						{/* <Test /> */}
 						<div className='d-none d-md-block'>
-							<ScrollToTop svgPath='M17.71,9.88l-4.3-4.29a2,2,0,0,0-2.82,0L6.29,9.88a1,1,0,0,0,0,1.41,1,1,0,0,0,1.42,0L11,8V19a1,1,0,0,0,2,0V8l3.29,3.29a1,1,0,1,0,1.42-1.41Z' viewBox='0 0 24 24' smooth />
+							<ScrollToTop svgPath='M17.71,9.88l-4.3-4.29a2,2,0,0,0-2.82,0L6.29,9.88a1,1,0,0,0,0,1.41,1,1,0,0,0,1.42,0L11,8V19a1,1,0,0,0,2,0V8l3.29,3.29a1,1,0,1,0,1.42-1.41Z' onClick={() => {
+								// Customize the behavior here
+								window.scrollTo({ top: 600, behavior: 'smooth' }); // Scrolls to 500 pixels from the top
+							}} viewBox='0 0 24 24' smooth />
 						</div>
 					</BusinessContextProvider>
 				) : (
