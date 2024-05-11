@@ -23,7 +23,7 @@ const Banner = () => {
                                         className={`carousel-item ${index === 0 ? 'active' : ''}`}
                                     >
                                         <img
-                                            src={`${banner.image}?tr=w-800,h-400`}
+                                            src={`${banner?.image}?tr=w-800,h-400`}
                                             className="d-block w-100 updated-banner"
                                             alt="..."
                                         />
