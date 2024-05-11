@@ -7,20 +7,24 @@ import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 import menuView from '../assets/img/menu-view.png';
 import Loader from '../components/Loader';
+import { checkFirstLetter } from '../utils/alphabetImages';
 
 const Home = () => {
 	const [categories, setCategories] = useState([]);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [products, setProducts] = useState([]);
 	const [isAPILoading, setIsAPILoading] = useState(true);
+	const [firstLetter, setFirstLetter] = useState("");
 
 	useEffect(() => {
 		const getCategories = async () => {
 			try {
 				const response = await GetPublicCategories();
 				setIsAPILoading(false);
-				console.log("Category", response?.data);
-				setCategories(response?.data?.category);
+				console.log("Categories", response?.data);
+				const categories = response.data?.category;
+				setCategories(categories);
+
 			} catch (error) {
 				console.log(error);
 			}
@@ -88,10 +92,13 @@ const Home = () => {
 						<div className="carousel-inner" style={{ display: 'flex', gap: '15px', padding: '5px', justifyContent: 'center' }}>
 							{
 								categories.length > 0 && categories?.map((category) => (
-									<div onClick={() => scrollToCategory(category?.id)} style={{ cursor: 'pointer' }} key={category?.id} >
+									<div
+										onClick={() => scrollToCategory(category?.id)}
+										style={{ cursor: 'pointer', textAlign: 'center' }} key={category?.id}
+									>
 										<img className="img-thumbnail rounded-circle"
-											style={{ width: '80px' }}
-											src={`${category?.image}?tr=w-20,h-20`}
+											style={{ width: '60px' }}
+											src={checkFirstLetter(category?.name.trim().charAt(0).toUpperCase())}
 											alt="..." />
 										<p className='text-center mt-3'>
 											{category?.name}
@@ -101,6 +108,7 @@ const Home = () => {
 							}
 						</div>
 					</div>
+					{/* Products */}
 					{categories.length > 0 && categories.map(category => (
 						<div key={category.id}>
 							<div className='mt-3'>
@@ -116,7 +124,10 @@ const Home = () => {
 														<img className="img-thumbnail rounded"
 															src={`${product.product_images[0]?.image}?tr=w-140,h-140`}
 															alt="..." />
-														: <p>No</p>
+														: <img style={{ width: '50px', height: '50px' }}
+															className="img-thumbnail rounded-circle"
+															src={checkFirstLetter(product?.name.trim().charAt(0).toUpperCase())}
+															alt="..." />
 												}
 											</div>
 											<div className="col-md-6 col-6 align-content-center">
@@ -158,9 +169,9 @@ const Home = () => {
 						/>
 					</div>
 					<div className="offcanvas offcanvas-bottom rounded-top h-75" tabIndex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
-						<div class="offcanvas-header">
-							<h5 class="offcanvas-title" id="offcanvasBottomLabel">Select Category</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+						<div className="offcanvas-header">
+							<h5 className="offcanvas-title" id="offcanvasBottomLabel">Select Category</h5>
+							<button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 						</div>
 						<div className="offcanvas-body small">
 							{
