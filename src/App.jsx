@@ -25,7 +25,7 @@ function App() {
 	useEffect(() => {
 		const domainName = async () => {
 			try {
-				const domain = window.location.hostname;
+				const domain = window.location.hostname; //"vikings.onlinelalaji.com"
 				const res = await GetDomain(domain);
 				localStorage.setItem("business_id", res?.data.business_id);
 				setIsLoading(false);

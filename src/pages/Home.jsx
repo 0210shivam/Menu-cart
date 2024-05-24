@@ -11,6 +11,7 @@ import { checkFirstLetter } from '../utils/alphabetImages';
 
 const Home = () => {
 	const [categories, setCategories] = useState([]);
+	// const [categoryImage, setCategoryImage] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [products, setProducts] = useState([]);
 	const [isAPILoading, setIsAPILoading] = useState(true);
@@ -97,10 +98,10 @@ const Home = () => {
 										style={{ cursor: 'pointer', textAlign: 'center' }} key={category?.id}
 									>
 										<img className="img-thumbnail rounded-circle"
-											style={{ width: '60px' }}
-											src={checkFirstLetter(category?.name.trim().charAt(0).toUpperCase())}
+											style={{ width: '60px', height: '60px' }}
+											src={category.image === "https://testapi.arbsindia.com/public/default.png" ? checkFirstLetter(category?.name.trim().charAt(0).toUpperCase()) : category.image}
 											alt="..." />
-										<p className='text-center mt-3'>
+										<p style={{ fontSize: '12px' }} className='text-center mt-3'>
 											{category?.name}
 										</p>
 									</div>
@@ -118,7 +119,7 @@ const Home = () => {
 								{category?.product_details.length > 0 && category.product_details.map(product => (
 									<div key={product.id}>
 										<div className="row mt-3">
-											<div className="col-md-3 col-3 text-center" >
+											<div style={{ padding: '6px' }} className="col-md-2 col-2 text-center" >
 												{
 													product?.product_images.length > 0 ?
 														<img className="img-thumbnail rounded"
@@ -130,8 +131,8 @@ const Home = () => {
 															alt="..." />
 												}
 											</div>
-											<div className="col-md-6 col-6 align-content-center">
-												<h5 className='mb-3 product-title'>{product?.name.charAt(0).toUpperCase() + product?.name.slice(1)}</h5>
+											<div style={{ padding: '6px' }} className="col-md-7 col-7 align-content-center">
+												<span className='product-title'>{product?.name.charAt(0).toUpperCase() + product?.name.slice(1)}</span>
 												{/* Description */}
 												{
 													product?.description !== null ?
@@ -152,7 +153,6 @@ const Home = () => {
 									</div>
 								))}
 							</div>
-							<hr />
 						</div>
 					))}
 					{/* Menu image --  */}

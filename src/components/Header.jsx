@@ -19,10 +19,10 @@ const Header = () => {
                             />
                         </Link>
                         <div className="d-flex justify-content-center justify-content-lg-between">
-                            <Link to={link_name} className="me-4 text-reset">
+                            <Link target='_blank' to={link_name} className="me-4 text-reset">
                                 <i className="fab fa-facebook-f" />
                             </Link>
-                            <Link to='/' className="me-4 text-reset">
+                            <Link target='_blank' to='/' className="me-4 text-reset">
                                 <i className="fab fa-instagram" />
                             </Link>
                         </div>

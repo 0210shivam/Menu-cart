@@ -92,7 +92,7 @@ const Footer = () => {
                         className="text-center p-4"
                         style={{ backgroundColor: "#070E6A", color: 'white' }}
                     >
-                        © 2020-24 All Rights Reserved
+                        &copy; All Rights Reserved
                     </div>
                 </footer>
             </div>
